@@ -13,6 +13,7 @@ public class MenuUIHandler : MonoBehaviour
 {
     public Button startButton;
     public Button exitButton;
+    public TMP_InputField playerNameInputField;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class MenuUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MenuManager.Instance.playerName = playerNameInputField.text;
     }
 
     public void StartNew()
@@ -38,4 +39,10 @@ public class MenuUIHandler : MonoBehaviour
         Application.Quit(); // original code to quit Unity player
 #endif
     }
+
+   /* public void NewPlayerName()
+    {
+
+        playerNameInputField.text = MenuManager.Instance.playerName;
+    }*/
 }
