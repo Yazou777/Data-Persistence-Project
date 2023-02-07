@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
+    public GameObject pauseScreen;
+    private bool paused;
+
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
@@ -40,6 +43,14 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
+        //Check if the user has pressed the P key
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ChangePaused();
+        }
+
+
+
         if (!m_Started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -72,5 +83,22 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    void ChangePaused()
+    {
+        if (!paused)
+        {
+            paused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            paused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
+
     }
 }
