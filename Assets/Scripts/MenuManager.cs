@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class MenuManager : MonoBehaviour
 {
@@ -20,10 +21,42 @@ public class MenuManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        LoadPlayerName();
     }
     // Update is called once per frame
     void Update()
     {
         Debug.Log(playerName);
     }
+
+    [System.Serializable]
+    class SaveData
+    {
+        public string playerName;
+    }
+
+    public void SavePlayerName()
+    {
+        SaveData data = new SaveData();
+        data.playerName = playerName;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    public void LoadPlayerName()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            playerName = data.playerName;
+        }
+    }
+
+
 }
