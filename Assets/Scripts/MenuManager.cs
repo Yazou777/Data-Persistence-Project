@@ -8,6 +8,8 @@ public class MenuManager : MonoBehaviour
     public static MenuManager Instance;
 
     public string playerName;
+    public string bestPlayerScored;
+    public int bestScore;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,12 +36,16 @@ public class MenuManager : MonoBehaviour
     class SaveData
     {
         public string playerName;
+        public string bestPlayerScored;
+        public int bestScore;
     }
 
     public void SavePlayerName()
     {
         SaveData data = new SaveData();
         data.playerName = playerName;
+        data.bestScore = bestScore;
+        data.bestPlayerScored = bestPlayerScored;
 
         string json = JsonUtility.ToJson(data);
 
@@ -55,6 +61,8 @@ public class MenuManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             playerName = data.playerName;
+            bestPlayerScored = data.bestPlayerScored;
+            bestScore = data.bestScore;
         }
     }
 

@@ -27,6 +27,11 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        if (MenuManager.Instance != null) //important pour pouvoir lance directement la scene main sans passer par le menu
+        {
+            BestScoreText.text = "Best score : " + MenuManager.Instance.bestPlayerScored + " : " + MenuManager.Instance.bestScore;
+        }
        
 
         const float step = 0.6f;
@@ -47,6 +52,10 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
+        
+
+        
+
         //Check if the user has pressed the P key
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -86,7 +95,21 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
-        BestScoreText.text = "Best score : " + MenuManager.Instance.playerName + $" : { m_Points}";
+
+        if (MenuManager.Instance != null) //important pour pouvoir lance directement la scene main sans passer par le menu
+        {
+            if (m_Points > MenuManager.Instance.bestScore)
+            {
+                MenuManager.Instance.bestPlayerScored = MenuManager.Instance.playerName;
+                MenuManager.Instance.bestScore = m_Points;
+                MenuManager.Instance.SavePlayerName();
+            }
+
+            BestScoreText.text = "Best score : " + MenuManager.Instance.bestPlayerScored + $" : { m_Points}";
+        }
+
+           
+
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
