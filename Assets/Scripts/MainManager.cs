@@ -105,7 +105,7 @@ public class MainManager : MonoBehaviour
                 MenuManager.Instance.SavePlayerName();
             }
 
-            BestScoreText.text = "Best score : " + MenuManager.Instance.bestPlayerScored + $" : { m_Points}";
+            BestScoreText.text = "Best score : " + MenuManager.Instance.bestPlayerScored + " : " + MenuManager.Instance.bestScore;
         }
 
            
